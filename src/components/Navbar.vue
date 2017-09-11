@@ -13,7 +13,12 @@
           <b-nav-item to="/scoreboard">Scoreboard</b-nav-item>
         </b-nav>
         <b-nav is-nav-bar>
-          <b-nav-item href="#">User1</b-nav-item>
+          <template v-if="logged_in">
+            <b-nav-item href="#">{{ username }}</b-nav-item>
+          </template>
+          <template v-else>
+            <b-nav-item to="/login">Login</b-nav-item>
+          </template>
         </b-nav>
       </b-collapse>
     </b-container>
@@ -21,6 +26,20 @@
 </template>
 
 <script>
+export default {
+  name: 'navbar',
+  data() {
+    return {}
+  },
+  computed: {
+    logged_in() {
+      return this.$store.state.account.token !== ""
+    },
+    username() {
+      return this.$store.state.account.username
+    }
+  }
+}
 </script>
 
 <style scoped>
