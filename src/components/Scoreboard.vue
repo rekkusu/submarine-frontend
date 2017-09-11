@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <tr v-for="item in scoreboard">
-          <td>{{ item.rank }}</td>
+          <td>{{ item.order }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.score }}</td>
         </tr>
@@ -22,17 +22,20 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'scoreboard',
   data () {
     return {
-      scoreboard: [
-        { rank: 1, name: 'Team1', score: 1000},
-        { rank: 2, name: 'Team2', score: 800},
-        { rank: 3, name: 'Team3', score: 500},
-        { rank: 4, name: 'Team4', score: 200},
-      ]
+      scoreboard: []
     }
+  },
+  created() {
+    axios.get('/api/v1/scoreboard')
+      .then(resp => {
+        console.log(resp)
+        this.scoreboard = resp.data
+      })
   }
 }
 </script>
