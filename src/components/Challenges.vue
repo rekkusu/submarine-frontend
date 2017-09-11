@@ -3,7 +3,10 @@
     <h2>Challenges</h2>
 
     <div class="d-flex flex-wrap">
-      <div class="card chal" v-for="challenge in challenges">
+      <div
+        class="card chal"
+        v-for="challenge in challenges"
+        v-bind:style="{ borderColor: colors[challenge.category] }">
         <div class="card-body px-2 py-2">
           <div class="container px-2">
             <div class="row text-center">
