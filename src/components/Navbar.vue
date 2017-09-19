@@ -32,10 +32,10 @@ export default {
   },
   computed: {
     logged_in() {
-      return this.$store.state.account.token !== ""
+      return this.$store.state.token !== "";
     },
     username() {
-      return this.$store.state.account.username
+      return this.$store.state.username;
     }
   }
 }

@@ -28,10 +28,10 @@ export default {
         username: this.username,
         password: this.password
       }).then(resp => {
-        this.$store.commit('setToken', resp.data.token)
-      }).catch(e => {
-        console.log(JSON.stringify(e));
-        this.$store.commit('setToken', '')
+        this.$store.commit('setToken', resp.data.token);
+        this.$router.push({'name': 'index'});
+      }).catch(() => {
+        this.$store.commit('setToken', '');
       });
     }
   },
