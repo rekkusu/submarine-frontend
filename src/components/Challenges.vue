@@ -22,11 +22,21 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Challenge Description{{ selectedChallenge.description }}</p>
+          <p>{{ selectedChallenge.description }}</p>
         </div>
         <div class="modal-footer">
-          <input class="form-control" placeholder="FLAG" v-model="flag" v-on:keydown.enter="submit">
-          <button type="button" class="btn btn-primary" v-on:click="submit">Submit</button>
+          <div class="container">
+            <div class="row">
+              <input class="col mr-auto form-control" placeholder="FLAG" required v-model="dialog.flag" v-on:keydown.enter="submit">
+              <button type="button" class="btn btn-primary col col-auto" v-on:click="submit">Submit</button>
+            </div>
+            <div class="row">
+              <div class="submit-result" v-show="dialog.message"
+                v-bind:class="{'text-success': dialog.message_type=='correct', 'text-danger': dialog.message_type=='invalid'}">
+                {{ dialog.message }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </modal-dialog>
@@ -42,19 +52,21 @@ export default {
     'challenge-item': ChallengeItem,
     'modal-dialog': ModalDialog,
   },
+  mounted() {
+    this.$http.get('/api/v1/challenges').then(resp => {
+      this.challenges = resp.data;
+    });
+  },
   data () {
     return {
       selectedChallenge: {},
-      flag: "",
+      dialog: {
+        flag: "",
+        message: "",
+        status: "",
+      },
       showModal: false,
-      challenges: [
-        {title: 'Inject', score: 100, category: 'Web', solves: 54, solved: true},
-        {title: 'Gyotaku', score: 200, category: 'Web', solves: 24},
-        {title: 'X55', score: 300, category: 'Web', solves: 10},
-        {title: 'RSA!', score: 100, category: 'Crypto', solves: 30},
-        {title: 'Read it', score: 200, category: 'Reversing', solves: 14},
-        {title: 'Droid', score: 300, category: 'Reversing', solves: 7, solved: true},
-      ]
+      challenges: []
     }
   },
   methods: {
@@ -64,10 +76,30 @@ export default {
     },
     closeModal(){
       this.showModal = false;
-      this.flag = '';
+      this.dialog.flag = '';
+      this.dialog.message = '';
     },
     submit() {
-      this.closeModal();
+      this.$http.post('/api/v1/challenges/' + this.selectedChallenge.id + '/submit', {
+        'answer': this.dialog.flag,
+      }).then(resp => {
+        if (resp.status == 202) {
+          if (resp.data.is_correct) {
+            this.dialog.message_type = 'correct';
+            this.dialog.message = 'Solved';
+            this.selectedChallenge.solved = true;
+          } else {
+            this.dialog.message_type = 'invalid';
+            this.dialog.message = 'Wrong';
+          }
+        }
+      }).catch(e => {
+        if (e.response.status == 409) {
+          // already solved
+          this.dialog.message_type = 'invalid';
+          this.dialog.message = 'Your team has already solved this challenge.';
+        }
+      });
     }
   }
 }
@@ -84,4 +116,5 @@ export default {
   text-align: center;
   font-size: 18px;
 }
+
 </style>

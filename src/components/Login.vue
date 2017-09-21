@@ -18,13 +18,11 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'login',
   methods: {
     onSubmit() {
-      axios.post('/api/v1/users/signin', {
+      this.$http.post('/api/v1/users/signin', {
         username: this.username,
         password: this.password
       }).then(resp => {

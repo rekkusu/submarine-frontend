@@ -7,11 +7,13 @@ import BootstrapVue from 'bootstrap-vue'
 
 import router from './router'
 import store from './store'
+import http from './http'
 
 Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
 Vue.use(Vuex);
+Vue.use(http);
 
 /* eslint-disable no-new */
 new Vue({
