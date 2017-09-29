@@ -23,7 +23,7 @@
       <div class="container px-1">
         <div class="row">
           <div class="col-auto mr-auto">{{ challenge.category }}</div>
-          <div class="col-auto">{{ challenge.score }}pt ({{ challenge.solves }})</div>
+          <div class="col-auto">{{ challenge.point }}pt ({{ challenge.solves }})</div>
         </div>
       </div>
     </div>
