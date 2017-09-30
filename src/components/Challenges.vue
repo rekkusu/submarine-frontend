@@ -52,22 +52,15 @@ export default {
     'challenge-item': ChallengeItem,
     'modal-dialog': ModalDialog,
   },
-  mounted() {
-    this.$http.get('/api/v1/categories').then(resp => {
-      const challenges = [];
-      for (const category of resp.data) {
-        if (category.challenges == null) {
-          continue;
-        }
-
-        for (const challenge of category.challenges) {
-          challenges.push(Object.assign(challenge, {
-            "category": category.name,
-          }))
-        }
-      }
-      this.challenges = challenges;
-    });
+  async mounted() {
+    const categories = await this.$http.get('/api/v1/categories');
+    const challenges = await this.$http.get('/api/v1/challenges');
+    const solves = await this.$http.get('/api/v1/challenges/solves');
+    this.challenges = challenges.data;
+    for (const challenge of this.challenges) {
+      challenge.category = categories.data[challenge.category_id];
+      challenge.solves = solves.data[challenge.id];
+    }
   },
   data () {
     return {
