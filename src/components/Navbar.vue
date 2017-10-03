@@ -16,6 +16,7 @@
             <b-nav-item href="#">{{ username }}</b-nav-item>
           </template>
           <template v-else>
+            <b-nav-item to="/register">Register</b-nav-item>
             <b-nav-item to="/login">Login</b-nav-item>
           </template>
         </b-nav>
@@ -42,4 +43,7 @@ export default {
 </script>
 
 <style scoped>
+  nav {
+    margin-bottom: 15px;
+  }
 </style>

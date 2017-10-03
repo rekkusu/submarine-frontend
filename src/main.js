@@ -4,6 +4,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App'
 import BootstrapVue from 'bootstrap-vue'
+import Notifications from 'vue-notification'
 
 import router from './router'
 import store from './store'
@@ -13,6 +14,7 @@ Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
 Vue.use(Vuex);
+Vue.use(Notifications);
 Vue.use(http);
 
 /* eslint-disable no-new */

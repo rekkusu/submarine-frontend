@@ -2,6 +2,7 @@
   <div id="app">
     <navbar></navbar>
     <router-view></router-view>
+    <notifications position="right bottom"></notifications>
   </div>
 </template>
 
@@ -11,7 +12,7 @@ export default {
   name: 'app',
   components: {
     'navbar': Navbar,
-  }
+  },
 }
 </script>
 

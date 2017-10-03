@@ -28,8 +28,16 @@ export default {
       }).then(resp => {
         this.$store.commit('setToken', resp.data.token);
         this.$router.push({'name': 'index'});
+        this.$notify({
+          type: 'success',
+          text: 'Login succeeded',
+        })
       }).catch(() => {
         this.$store.commit('setToken', '');
+        this.$notify({
+          type: 'error',
+          text: 'Login failed',
+        })
       });
     }
   },

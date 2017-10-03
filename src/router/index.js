@@ -4,6 +4,7 @@ import Index from '@/components/Index'
 import Challenges from '@/components/Challenges'
 import Scoreboard from '@/components/Scoreboard'
 import Login from '@/components/Login'
+import Register from '@/components/Register'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register,
     },
     {
       path: '/challenges',
