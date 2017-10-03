@@ -13,7 +13,9 @@
         </b-nav>
         <b-nav is-nav-bar>
           <template v-if="logged_in">
-            <b-nav-item href="#">{{ username }}</b-nav-item>
+            <b-nav-item-dropdown v-bind:text="username" right>
+              <b-dropdown-item v-on:click="logout">Logout</b-dropdown-item>
+            </b-nav-item-dropdown>
           </template>
           <template v-else>
             <b-nav-item to="/register">Register</b-nav-item>
@@ -37,6 +39,12 @@ export default {
     },
     username() {
       return this.$store.state.username;
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.commit('logout');
+      this.$router.push({name: 'index'});
     }
   }
 }

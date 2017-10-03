@@ -23,6 +23,9 @@ export default {
         state.token = "";
         state.username = "";
       });
+    },
+    logout(state) {
+      state.token = '';
     }
   },
   plugins: [
@@ -37,6 +40,11 @@ export default {
         // save
         if (mutation.type === 'setToken') {
           window.localStorage.setItem('token', mutation.payload);
+        }
+
+        // logout
+        if (mutation.type === 'logout') {
+          window.localStorage.removeItem('token');
         }
       });
     }
