@@ -55,11 +55,9 @@ export default {
   async mounted() {
     const categories = await this.$http.get('/api/v1/categories');
     const challenges = await this.$http.get('/api/v1/challenges');
-    const solves = await this.$http.get('/api/v1/challenges/solves');
     this.challenges = challenges.data;
     for (const challenge of this.challenges) {
       challenge.category = categories.data[challenge.category_id];
-      challenge.solves = solves.data[challenge.id];
     }
   },
   data () {
