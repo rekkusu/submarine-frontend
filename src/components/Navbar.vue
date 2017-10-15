@@ -14,6 +14,7 @@
         <b-nav is-nav-bar>
           <template v-if="logged_in">
             <b-nav-item-dropdown v-bind:text="username" right>
+              <b-dropdown-item v-if="is_admin" to="/admin" exact>Admin</b-dropdown-item>
               <b-dropdown-item v-on:click="logout">Logout</b-dropdown-item>
             </b-nav-item-dropdown>
           </template>
@@ -34,6 +35,9 @@ export default {
     return {}
   },
   computed: {
+    is_admin() {
+      return this.$store.state.role === 'admin';
+    },
     logged_in() {
       return this.$store.state.token !== "";
     },

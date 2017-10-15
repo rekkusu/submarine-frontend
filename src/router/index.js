@@ -5,10 +5,15 @@ import Challenges from '@/components/Challenges'
 import Scoreboard from '@/components/Scoreboard'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
+import Admin from '@/components/Admin'
+import AdminChallenges from '@/components/admin/Challenges'
+import ChallengeEdit from '@/components/admin/ChallengeEdit'
+import Status from '@/components/admin/Status'
+import store from '../store'
 
-Vue.use(Router)
+Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -34,6 +39,55 @@ export default new Router({
       path: '/scoreboard',
       name: 'scoreboard',
       component: Scoreboard
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Admin,
+      meta: {
+        admin: true,
+      },
+      children: [
+        {
+          path: 'challenges',
+          name: 'admin_challenges',
+          component: AdminChallenges
+        },
+        {
+          path: 'challenges/:id',
+          name: 'edit_challenge',
+          component: ChallengeEdit
+        },
+        {
+          path: 'general',
+          name: 'general',
+          component: Status
+        },
+        {
+          path: 'categories',
+          name: 'categories',
+          component: Status
+        },
+        {
+          path: 'status',
+          name: 'status',
+          component: Status
+        },
+      ]
     }
   ]
-})
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.admin || to.matched.some(record => record.meta.admin)) {
+    if (store.state.role !== 'admin') {
+      next({path: '/'});
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;

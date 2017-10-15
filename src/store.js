@@ -4,7 +4,8 @@ import createLogger from 'vuex/dist/logger'
 export default {
   state: {
     username: "",
-    token: ""
+    token: "",
+    role: "",
   },
   mutations: {
     setToken(state, token) {
@@ -19,6 +20,7 @@ export default {
         }
       }).then(resp => {
         state.username = resp.data.username;
+        state.role = resp.data.role;
       }).catch(() => {
         state.token = "";
         state.username = "";

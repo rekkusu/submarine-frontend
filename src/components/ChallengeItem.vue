@@ -39,14 +39,14 @@
     },
     computed: {
       backgroundColor: function() {
-        if (this.challenge.solved) {
+        if (this.challenge && this.challenge.solved) {
           return '#e6ffe0';
         } else {
           return '#ffffff';
         }
       },
       challengeColor: function() {
-        if (this.challenge.solved) {
+        if (this.challenge && this.challenge.solved) {
           return '#00a03b';
         } else {
           return '#007bff';
