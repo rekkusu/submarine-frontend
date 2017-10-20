@@ -7,6 +7,7 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Admin from '@/components/Admin'
 import AdminChallenges from '@/components/admin/Challenges'
+import AdminCategories from '@/components/admin/Categories'
 import ChallengeEdit from '@/components/admin/ChallengeEdit'
 import Status from '@/components/admin/Status'
 import store from '../store'
@@ -66,7 +67,7 @@ const router = new Router({
         {
           path: 'categories',
           name: 'categories',
-          component: Status
+          component: AdminCategories
         },
         {
           path: 'status',
