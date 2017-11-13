@@ -1,6 +1,13 @@
 <template>
   <div>
     <div class="container mt-2">
+      <div class="row justify-content-end">
+        <div class="col-auto">
+          <button type="button" class="btn btn-primary" @click="newChallenge()">New Challenge</button>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-2">
       <div class="d-flex flex-wrap">
         <challenge-item
           v-for="challenge in challenges"
@@ -35,6 +42,9 @@
       }
     },
     methods: {
+      newChallenge() {
+        this.$router.push({name: 'edit_challenge', params:{id: 'new'}})
+      },
       editChallenge(challenge) {
         this.$router.push({name: 'edit_challenge', params:{id: challenge.id}})
       },
