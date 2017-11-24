@@ -39,15 +39,11 @@
     },
     computed: {
       backgroundColor: function() {
-        if (this.challenge && this.challenge.solved) {
-          return '#e6ffe0';
-        } else {
-          return '#ffffff';
-        }
+        return '#ffffff';
       },
       challengeColor: function() {
         if (this.challenge && this.challenge.solved) {
-          return '#00a03b';
+          return '#6c6c6c';
         } else {
           return '#007bff';
         }

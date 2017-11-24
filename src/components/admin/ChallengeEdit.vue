@@ -27,7 +27,7 @@
           </b-form-group>
         </div>
         <div class="row">
-          <b-form-group label="Flag" class="col" horizontal label-cols="1">
+          <b-form-group label="Flag" class="col" horizontal :label-cols=1>
             <b-form-input v-model.trim="challenge.flag">
             </b-form-input>
           </b-form-group>
@@ -40,7 +40,6 @@
         </div>
       </b-form>
     </div>
-
   </div>
 </template>
 
