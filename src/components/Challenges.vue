@@ -27,8 +27,16 @@
         <div class="modal-footer">
           <div class="container">
             <div class="row">
-              <input class="col mr-auto form-control" placeholder="FLAG" required v-model="dialog.flag" v-on:keydown.enter="submit">
-              <button type="button" class="btn btn-primary col col-auto" v-on:click="submit">Submit</button>
+              <input class="col mr-auto form-control"
+                     style="border-top-right-radius: 0; border-bottom-right-radius: 0;"
+                     placeholder="FLAG"
+                     required
+                     v-model="dialog.flag"
+                     v-on:keydown.enter="submit">
+              <button type="button"
+                      style="border-top-left-radius: 0; border-bottom-left-radius: 0;"
+                      class="btn btn-primary col col-auto"
+                      v-on:click="submit">Submit</button>
             </div>
           </div>
         </div>
