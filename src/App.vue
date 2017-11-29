@@ -1,8 +1,12 @@
 <template>
   <div id="app">
     <navbar></navbar>
+    <b-container>
+      <b-alert v-if="notification_computed.immediately" :show="notification_computed.show" :variant="notification_computed.type">
+        {{ notification_computed.message }}
+      </b-alert>
+    </b-container>
     <router-view></router-view>
-    <notifications position="right bottom"></notifications>
   </div>
 </template>
 
@@ -13,7 +17,24 @@ export default {
   components: {
     'navbar': Navbar,
   },
-}
+  data() {
+    return {
+      notification: this.$store.state.notification,
+    };
+  },
+  computed: {
+    notification_computed() {
+      return this.$store.state.notification;
+    },
+  },
+  beforeRouteEnter() {
+    if (this.$store.state.notification.show === true) {
+      this.$store.commit('removeNotification');
+    } else if (this.$store.state.notification.immediately === false) {
+      this.$store.commit('showNotification');
+    }
+  }
+};
 </script>
 
 <style>

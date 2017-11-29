@@ -11,7 +11,7 @@ import AdminCategories from '@/components/admin/Categories'
 import AdminGeneral from '@/components/admin/General'
 import ChallengeEdit from '@/components/admin/ChallengeEdit'
 import Status from '@/components/admin/Status'
-import store from '../store'
+import store from '@/store.js'
 
 Vue.use(Router);
 
@@ -91,5 +91,10 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
+router.afterEach(function() {
+  store.commit('stepNotification');
+});
+
 
 export default router;

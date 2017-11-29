@@ -1,11 +1,20 @@
 import axios from 'axios'
-import createLogger from 'vuex/dist/logger'
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-export default {
+Vue.use(Vuex);
+
+export default new Vuex.Store({
   state: {
     username: "",
     token: "",
     role: "",
+    notification: {
+      type: "",
+      message: "",
+      show: false,
+      immediately: true,
+    }
   },
   mutations: {
     setToken(state, token) {
@@ -25,6 +34,32 @@ export default {
         state.token = "";
         state.username = "";
       });
+    },
+    setNotification(state, obj) {
+      state.notification.type = obj.type;
+      state.notification.message = obj.message;
+      if (obj.immediately) {
+        state.notification.show = true;
+        state.notification.immediately = true;
+      } else {
+        state.notification.show = false;
+        state.notification.immediately = false;
+      }
+    },
+    showNotification(state) {
+      state.notification.show = true;
+      state.notification.immediately = true;
+    },
+    stepNotification(state) {
+      if (state.notification.immediately == false) {
+        state.notification.immediately = true;
+        state.notification.show = true;
+        return;
+      }
+      state.notification.type = "";
+      state.notification.message = "";
+      state.notification.show = false;
+      state.notification.immediately = true;
     },
     logout(state) {
       state.token = '';
@@ -51,5 +86,4 @@ export default {
       });
     }
   ]
-}
-
+});

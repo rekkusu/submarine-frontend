@@ -14,7 +14,7 @@ function getAxios(vue) {
   http.interceptors.response.use(response => {
     return response;
   }, e => {
-    if (e.response.status == 400 || e.response.status == 401) {
+    if (e.response.status == 401) {
       vue.$router.push({'name': 'login'});
     }
     return Promise.reject(e);

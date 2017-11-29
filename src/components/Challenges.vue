@@ -53,17 +53,27 @@ export default {
     'modal-dialog': ModalDialog,
   },
   async mounted() {
-    const categories = await this.$http.get('/api/v1/categories');
-    const challenges = await this.$http.get('/api/v1/challenges');
-    const solved = await this.$http.get('/api/v1/submissions/solved');
-    this.challenges = challenges.data;
-    for (const challenge of this.challenges) {
-      challenge.category = categories.data[challenge.category_id];
-      for (const sol of solved.data) {
-        if (sol.challenge.id === challenge.id) {
-          challenge.solved = true;
-          break;
+    try {
+      const categories = await this.$http.get('/api/v1/categories');
+      const challenges = await this.$http.get('/api/v1/challenges');
+      const solved = await this.$http.get('/api/v1/submissions/solved');
+      this.challenges = challenges.data;
+      for (const challenge of this.challenges) {
+        challenge.category = categories.data[challenge.category_id];
+        for (const sol of solved.data) {
+          if (sol.challenge.id === challenge.id) {
+            challenge.solved = true;
+            break;
+          }
         }
+      }
+    } catch (e) {
+      if (e.response.status == 403) {
+        this.$store.commit('setNotification', {
+          type: 'danger',
+          message: 'The contest has not yet started',
+          immediately: true,
+        });
       }
     }
   },

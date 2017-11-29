@@ -27,16 +27,18 @@ export default {
         password: this.password
       }).then(resp => {
         this.$store.commit('setToken', resp.data.token);
-        this.$router.push({'name': 'index'});
-        this.$notify({
+        this.$store.commit('setNotification', {
           type: 'success',
-          text: 'Login succeeded',
-        })
+          message: 'Login Successful',
+          immediately: false,
+        });
+        this.$router.push({'name': 'index'});
       }).catch(() => {
         this.$store.commit('setToken', '');
-        this.$notify({
-          type: 'error',
-          text: 'Login failed',
+        this.$store.commit('setNotification', {
+          type: 'danger',
+          message: 'Login failed',
+          immediately: true,
         })
       });
     }
