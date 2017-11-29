@@ -30,12 +30,6 @@
               <input class="col mr-auto form-control" placeholder="FLAG" required v-model="dialog.flag" v-on:keydown.enter="submit">
               <button type="button" class="btn btn-primary col col-auto" v-on:click="submit">Submit</button>
             </div>
-            <div class="row">
-              <div class="submit-result" v-show="dialog.message"
-                v-bind:class="{'text-success': dialog.message_type=='correct', 'text-danger': dialog.message_type=='invalid'}">
-                {{ dialog.message }}
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -105,20 +99,37 @@ export default {
       }).then(resp => {
         if (resp.status == 202) {
           if (resp.data.is_correct) {
-            this.dialog.message_type = 'correct';
-            this.dialog.message = 'Solved';
+            this.$store.commit('setNotification', {
+              type: 'success',
+              message: 'Correct!',
+              immediately: true,
+            });
             this.selectedChallenge.solved = true;
           } else {
-            this.dialog.message_type = 'invalid';
-            this.dialog.message = 'Wrong';
+            this.$store.commit('setNotification', {
+              type: 'danger',
+              message: 'Wrong...',
+              immediately: true,
+            });
           }
         }
+        this.closeModal();
       }).catch(e => {
         if (e.response.status == 409) {
           // already solved
-          this.dialog.message_type = 'invalid';
-          this.dialog.message = 'Your team has already solved this challenge.';
+          this.$store.commit('setNotification', {
+            type: 'warning',
+            message: 'Your team has already solved this challenge.',
+            immediately: true,
+          });
+        } else if (e.response.status == 403) {
+          this.$store.commit('setNotification', {
+            type: 'danger',
+            message: 'The contest has not yet started',
+            immediately: true,
+          });
         }
+        this.closeModal();
       });
     }
   }
