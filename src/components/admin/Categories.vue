@@ -98,6 +98,11 @@
         if (confirm('本当に削除しますか？')) {
           this.$http.delete('/api/v1/categories/' + category.id).then(() => {
             this.loadCategories();
+            this.$store.commit('setNotification', {
+              type: 'success',
+              message: 'Deleted',
+              immediately: true,
+            });
           });
         }
       },
@@ -106,18 +111,24 @@
       },
       submit() {
         const category = {name: this.dialog.name};
+        let req;
 
         if (this.selectedCategory.id === 0) {
-          this.$http.post('/api/v1/categories', category).then(() => {
-            this.showModal = false;
-            this.loadCategories();
-          });
+          req = this.$http.post('/api/v1/categories', category);
         } else {
-          this.$http.put('/api/v1/categories/' + this.selectedCategory.id, category).then(() => {
-            this.showModal = false;
-            this.loadCategories();
-          });
+          req = this.$http.put('/api/v1/categories/' + this.selectedCategory.id, category);
         }
+
+        req.then(() => {
+          this.$store.commit('setNotification', {
+            type: 'success',
+            message: 'Saved',
+            immediately: true,
+          });
+
+          this.loadCategories();
+          this.closeModal();
+        });
       }
     }
   }

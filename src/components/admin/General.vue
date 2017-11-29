@@ -36,6 +36,11 @@ export default {
       }).then(result => {
         if (result.status === 204) {
           // OK
+          this.$store.commit('setNotification', {
+            type: 'success',
+            message: 'Success',
+            immediately: true,
+          })
         }
       });
     }

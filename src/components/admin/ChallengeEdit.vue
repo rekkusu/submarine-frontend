@@ -82,14 +82,21 @@
     methods: {
       submit() {
         const id = this.$route.params.id;
+        let req;
         if (id === 'new') {
-          const req = this.$http.post('/api/v1/challenges', this.challenge);
+          req = this.$http.post('/api/v1/challenges', this.challenge);
         } else {
-          const req = this.$http.put('/api/v1/challenges/' + id, this.challenge);
+          req = this.$http.put('/api/v1/challenges/' + id, this.challenge);
         }
 
         req.then(result => {
-
+          if (result.status == 204) {
+            this.$store.commit('setNotification', {
+              type: 'success',
+              message: 'Saved',
+              immediately: true,
+            });
+          }
         });
       }
     }
