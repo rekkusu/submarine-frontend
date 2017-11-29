@@ -7,11 +7,13 @@ import BootstrapVue from 'bootstrap-vue'
 import router from './router'
 import store from './store'
 import http from './http'
+import moment from 'vue-moment'
 
 Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
 Vue.use(http);
+Vue.use(moment);
 
 /* eslint-disable no-new */
 new Vue({
