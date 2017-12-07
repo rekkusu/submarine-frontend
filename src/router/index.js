@@ -9,6 +9,7 @@ import Admin from '@/components/Admin'
 import AdminChallenges from '@/components/admin/Challenges'
 import AdminCategories from '@/components/admin/Categories'
 import AdminGeneral from '@/components/admin/General'
+import AdminAnnouncements from '@/components/admin/Announcements'
 import ChallengeEdit from '@/components/admin/ChallengeEdit'
 import Status from '@/components/admin/Status'
 import store from '@/store.js'
@@ -69,6 +70,11 @@ const router = new Router({
           path: 'categories',
           name: 'categories',
           component: AdminCategories
+        },
+        {
+          path: 'announcements',
+          name: 'announcements',
+          component: AdminAnnouncements
         },
         {
           path: 'status',
