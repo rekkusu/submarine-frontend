@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/components/Index'
+import Announcement from '@/components/Announcement'
 import Challenges from '@/components/Challenges'
 import Scoreboard from '@/components/Scoreboard'
 import Login from '@/components/Login'
@@ -27,6 +28,11 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/announcements/:id',
+      name: 'announcement',
+      component: Announcement
     },
     {
       path: '/register',

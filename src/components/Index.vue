@@ -10,8 +10,10 @@
 
     <h2>Announcement</h2>
     <ul>
-      <li v-for="announce in announcements">
-        {{ announce.message }} ({{ announce.posted_at | moment('from') }})
+      <li v-for="announcement in announcements">
+        <router-link :to="{name: 'announcement', params: { id: announcement.id }}">
+          {{ announcement.title }}
+        </router-link> ({{ announcement.posted_at | moment('from') }})
       </li>
     </ul>
   </b-container>
