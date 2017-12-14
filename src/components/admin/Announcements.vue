@@ -1,6 +1,13 @@
 <template>
   <div>
     <div class="container mt-2">
+      <div class="row justify-content-end">
+        <div class="col-auto">
+          <button type="button" class="btn btn-primary" @click="newAnnouncement()">New Announcement</button>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-2">
       <b-table striped hover :items="announcements" :fields="announcement_fields">
         <template slot="id" scope="data">
           {{ data.value }}
