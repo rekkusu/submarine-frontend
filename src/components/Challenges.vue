@@ -22,7 +22,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>{{ selectedChallenge.description }}</p>
+          <p v-html="$options.filters.markdown(selectedChallenge.description)"></p>
         </div>
         <div class="modal-footer">
           <div class="container">
@@ -48,6 +48,7 @@
 <script>
 import ChallengeItem from '@/components/ChallengeItem'
 import ModalDialog from '@/components/ModalDialog'
+import marked from 'marked'
 export default {
   name: 'challenges',
   components: {
@@ -90,6 +91,12 @@ export default {
       showModal: false,
       challenges: []
     }
+  },
+  filters: {
+    markdown(md) {
+      if (!md) return "";
+      return marked(md);
+    },
   },
   methods: {
     showChallenge(challenge) {
