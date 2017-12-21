@@ -13,7 +13,7 @@
       <tbody>
         <tr v-for="item in scoreboard">
           <td>{{ item.order }}</td>
-          <td>{{ item.name }}</td>
+          <td><router-link :to="{name: 'team', params: {id: item.id}}">{{ item.name }}</router-link></td>
           <td>{{ item.score }}</td>
         </tr>
       </tbody>

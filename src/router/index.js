@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Index from '@/components/Index'
 import Announcement from '@/components/Announcement'
 import Challenges from '@/components/Challenges'
+import Team from '@/components/Team'
 import Scoreboard from '@/components/Scoreboard'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
@@ -48,6 +49,11 @@ const router = new Router({
       path: '/scoreboard',
       name: 'scoreboard',
       component: Scoreboard
+    },
+    {
+      path: '/teams/:id',
+      name: 'team',
+      component: Team,
     },
     {
       path: '/admin',
