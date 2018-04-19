@@ -6,7 +6,7 @@
           <b-nav pills vertical class="">
             <b-nav-item to="/admin/general">General</b-nav-item>
             <b-nav-item to="/admin/announcements">Announcements</b-nav-item>
-            <b-nav-item to="/admin/categories">Category</b-nav-item>
+            <b-nav-item to="/admin/categories">Categories</b-nav-item>
             <b-nav-item to="/admin/challenges">Challenges</b-nav-item>
             <b-nav-item>Scoring</b-nav-item>
           </b-nav>
