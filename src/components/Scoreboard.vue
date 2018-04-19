@@ -8,6 +8,7 @@
           <th>#</th>
           <th>Team</th>
           <th>Score</th>
+          <th>Last</th>
         </tr>
       </thead>
       <tbody>
@@ -15,6 +16,7 @@
           <td>{{ item.order }}</td>
           <td><router-link :to="{name: 'team', params: {id: item.id}}">{{ item.name }}</router-link></td>
           <td>{{ item.score }}</td>
+          <td>{{ item.last }}</td>
         </tr>
       </tbody>
     </table>
@@ -23,6 +25,7 @@
 
 <script>
 import axios from 'axios'
+import moment from 'moment'
 export default {
   name: 'scoreboard',
   data () {
@@ -33,8 +36,15 @@ export default {
   created() {
     axios.get('/api/v1/scoreboard')
       .then(resp => {
-        console.log(resp)
-        this.scoreboard = resp.data
+        for (let i = 0; i < resp.data.length; i++) {
+          if (resp.data[i].score === 0) {
+            resp.data[i].order = '-';
+            resp.data[i].last = '-';
+          } else {
+            resp.data[i].last = moment(resp.data[i].last).format('YYYY/MM/DD HH:mm:ss');
+          }
+        }
+        this.scoreboard = resp.data;
       })
   }
 }

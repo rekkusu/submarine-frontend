@@ -4,13 +4,13 @@
       <h2>{{ team.username }}</h2>
       <h3>Solved Challenges</h3>
       <b-table hover :items="solved">
-
       </b-table>
     </template>
   </b-container>
 </template>
 
 <script>
+  import moment from 'moment'
   export default {
     name: 'index',
     props: ['id'],
@@ -18,7 +18,7 @@
       return {
         team: null,
         solved: [],
-        solved_fields: ['challenge.title', 'challenge.point', 'submitted_at']
+        solved_fields: ['title', 'point', 'submitted_at']
       }
     },
     mounted() {
@@ -28,7 +28,7 @@
           return {
             title: sub.challenge.title,
             point: sub.challenge.point,
-            submitted_at: sub.submitted_at,
+            submitted_at: moment(new Date(sub.submitted_at)).format('YYYY/MM/DD HH:mm:ss'),
           }
         });
       }).catch(e => {
