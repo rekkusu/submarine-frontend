@@ -13,6 +13,7 @@ import AdminCategories from '@/components/admin/Categories'
 import AdminGeneral from '@/components/admin/General'
 import AdminAnnouncements from '@/components/admin/Announcements'
 import ChallengeEdit from '@/components/admin/ChallengeEdit'
+import AdminActivate from '@/components/admin/Activate'
 import Status from '@/components/admin/Status'
 import store from '@/store.js'
 
@@ -54,6 +55,11 @@ const router = new Router({
       path: '/teams/:id',
       name: 'team',
       component: Team,
+    },
+    {
+      path: '/admin/activate',
+      name: 'admin_activation',
+      component: AdminActivate
     },
     {
       path: '/admin',
