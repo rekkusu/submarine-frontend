@@ -84,20 +84,45 @@
         const id = this.$route.params.id;
         let req;
         if (id === 'new') {
-          req = this.$http.post('/api/v1/challenges', this.challenge);
-        } else {
-          req = this.$http.put('/api/v1/challenges/' + id, this.challenge);
-        }
+          this.$http.post('/api/v1/challenges', this.challenge)
+            .then(result => {
+              if (result.status == 201) {
+                this.$store.commit('setNotification', {
+                  type: 'success',
+                  message: 'Created',
+                  immediately: false,
+                });
+              }
 
-        req.then(result => {
-          if (result.status == 204) {
-            this.$store.commit('setNotification', {
-              type: 'success',
-              message: 'Saved',
-              immediately: true,
+              this.$router.push({name: 'edit_challenge', params:{id: result.data.id}})
+            })
+            .catch(() => {
+              this.$store.commit('setNotification', {
+                type: 'danger',
+                message: 'Error',
+                immediately: true,
+              });
             });
-          }
-        });
+        } else {
+          this.$http.put('/api/v1/challenges/' + id, this.challenge)
+            .then(result => {
+              if (result.status == 204) {
+                this.$store.commit('setNotification', {
+                  type: 'success',
+                  message: 'Saved',
+                  immediately: true,
+                });
+              }
+            })
+            .catch(() => {
+              this.$store.commit('setNotification', {
+                type: 'danger',
+                message: 'Error',
+                immediately: true,
+              });
+
+            });
+        }
       }
     }
   }
