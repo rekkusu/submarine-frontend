@@ -33,9 +33,12 @@
           </b-form-group>
         </div>
         <div class="row">
-          <div class="col">
+          <div class="col-auto mr-auto">
             <b-button type="submit" variant="primary">Save</b-button>
             <b-button :to="{name: 'admin_challenges'}">Cancel</b-button>
+          </div>
+          <div class="col-auto">
+            <b-button variant="danger" @click="removeChallenge()">Remove</b-button>
           </div>
         </div>
       </b-form>
@@ -52,6 +55,7 @@
     data() {
       return {
         categories: [],
+        id: this.$route.params.id,
         challenge: {
           category_id: 0,
           title: "",
@@ -68,8 +72,7 @@
         preview.solves = 0;
         return preview;
       }
-    },
-    async mounted() {
+    }, async mounted() {
       const categories = await this.$http.get('/api/v1/categories');
       this.categories = categories.data;
 
@@ -120,8 +123,31 @@
                 message: 'Error',
                 immediately: true,
               });
-
             });
+        }
+      },
+      removeChallenge: function() {
+        const id = this.$route.params.id;
+        if (id === 'new') {
+          this.$router.push({name: 'admin_challenges'});
+          return;
+        }
+        if (confirm("本当に削除しますか？")) {
+          this.$http.delete('/api/v1/challenges/' + id).then(() => {
+            this.$store.commit('setNotification', {
+              type: 'success',
+              message: 'Removed',
+              immediately: false,
+            });
+
+            this.$router.push({name: 'admin_challenges'});
+          }).catch(() => {
+            this.$store.commit('setNotification', {
+              type: 'danger',
+              message: 'Error',
+              immediately: true,
+            });
+          });
         }
       }
     }
