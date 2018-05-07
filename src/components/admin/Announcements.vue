@@ -18,6 +18,9 @@
         <template slot="posted_at" scope="data">
           {{ data.value | moment('YYYY/MM/DD HH:mm:ss') }}
         </template>
+        <template slot="remove" scope="data">
+          <button class="btn btn-danger" @click="removeAnnouncement(data.item)">Remove</button>
+        </template>
       </b-table>
     </div>
 
@@ -78,6 +81,7 @@
           'id',
           'title',
           'posted_at',
+          'remove',
         ],
         selectedAnnouncement: null,
         showModal: false,
@@ -114,6 +118,20 @@
       },
       removeAnnouncement(item) {
         if (confirm('本当に削除しますか？')) {
+          this.$http.delete('/api/v1/announcements/' + item.id).then(() => {
+            this.$store.commit('setNotification', {
+              type: 'success',
+              message: 'Removed',
+              immediately: true,
+            });
+          }).catch(() => {
+            this.$store.commit('setNotification', {
+              type: 'danger',
+              message: 'Error',
+              immediately: true,
+            });
+          });
+          this.loadAnnouncements();
         }
       },
       closeModal(){
