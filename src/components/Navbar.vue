@@ -1,5 +1,5 @@
 <template>
-  <b-navbar type="dark" class="navbar-expand-lg" style="background-color: #ef411f">
+  <b-navbar type="dark" class="navbar-expand-lg" variant="adctf">
     <b-container>
       <b-navbar-brand to="/">ADCTF</b-navbar-brand>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,5 +57,8 @@ export default {
 <style scoped>
   nav {
     margin-bottom: 15px;
+  }
+  .bg-adctf {
+    background-color: #ef411f;
   }
 </style>
