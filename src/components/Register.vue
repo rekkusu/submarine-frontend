@@ -3,7 +3,7 @@
     <h2>Register</h2>
     <form class="col-6" v-on:submit.prevent="onSubmit">
       <div class="form-group">
-        <label for="username" class="form-control-label ">Username</label>
+        <label for="username" class="form-control-label">Username (4-32chars)</label>
         <input type="text" class="form-control" id="username" placeholder="username" required v-model="username">
       </div>
       <div class="form-group">
