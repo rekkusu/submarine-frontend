@@ -8,7 +8,7 @@
             <b-nav-item to="/admin/announcements">Announcements</b-nav-item>
             <b-nav-item to="/admin/categories">Categories</b-nav-item>
             <b-nav-item to="/admin/challenges">Challenges</b-nav-item>
-            <b-nav-item>Scoring</b-nav-item>
+            <b-nav-item to="/admin/submissions">Submissions</b-nav-item>
           </b-nav>
         </div>
         <div class="col">

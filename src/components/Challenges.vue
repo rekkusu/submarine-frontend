@@ -59,7 +59,7 @@ export default {
     try {
       const categories = await this.$http.get('/api/v1/categories');
       const challenges = await this.$http.get('/api/v1/challenges');
-      const solved = await this.$http.get('/api/v1/submissions/solved');
+      const solved = await this.$http.get('/api/v1/challenges/solved');
       this.challenges = challenges.data;
       for (const challenge of this.challenges) {
         challenge.category = categories.data[challenge.category_id];

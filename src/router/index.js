@@ -12,6 +12,7 @@ import AdminChallenges from '@/components/admin/Challenges'
 import AdminCategories from '@/components/admin/Categories'
 import AdminGeneral from '@/components/admin/General'
 import AdminAnnouncements from '@/components/admin/Announcements'
+import AdminSubmissions from '@/components/admin/Submissions'
 import ChallengeEdit from '@/components/admin/ChallengeEdit'
 import AdminActivate from '@/components/admin/Activate'
 import Status from '@/components/admin/Status'
@@ -93,6 +94,11 @@ const router = new Router({
           path: 'announcements',
           name: 'announcements',
           component: AdminAnnouncements
+        },
+        {
+          path: 'submissions',
+          name: 'submissions',
+          component: AdminSubmissions
         },
         {
           path: 'status',

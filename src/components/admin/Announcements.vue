@@ -9,16 +9,16 @@
     </div>
     <div class="container mt-2">
       <b-table striped hover :items="announcements" :fields="announcement_fields">
-        <template slot="id" scope="data">
+        <template slot="id" slot-scope="data">
           {{ data.value }}
         </template>
-        <template slot="title" scope="data">
+        <template slot="title" slot-scope="data">
           <a href="#" @click.prevent="editAnnouncement(data.item)">{{ data.value }}</a>
         </template>
-        <template slot="posted_at" scope="data">
+        <template slot="posted_at" slot-scope="data">
           {{ data.value | moment('YYYY/MM/DD HH:mm:ss') }}
         </template>
-        <template slot="remove" scope="data">
+        <template slot="remove" slot-scope="data">
           <button class="btn btn-danger" @click="removeAnnouncement(data.item)">Remove</button>
         </template>
       </b-table>
