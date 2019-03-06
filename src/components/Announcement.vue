@@ -2,12 +2,13 @@
   <b-container class="mt-2">
     <h2>{{ announcement.title }}</h2>
     <p>{{ announcement.posted_at | formatTime }}</p>
-    {{ announcement.content }}
+    <div v-html="$options.filters.markdown(announcement.content)"></div>
   </b-container>
 </template>
 
 <script>
   import moment from 'moment'
+  import marked from 'marked'
   export default {
     name: 'announcement',
     data () {
@@ -22,6 +23,10 @@
       })
     },
     filters: {
+      markdown(md) {
+        if (!md) return "";
+        return marked(md);
+      },
       formatTime(t) {
         return moment(t).format('MMMM Do YYYY, HH:mm:ss');
       }
