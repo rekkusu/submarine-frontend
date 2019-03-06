@@ -2,7 +2,7 @@
   <b-container class="mt-2">
     <template v-if="team">
       <h2>{{ team.username }}</h2>
-      <h3>Solved Challenges</h3>
+      <h4>Solved Challenges</h4>
       <b-table hover :items="solved">
       </b-table>
     </template>
