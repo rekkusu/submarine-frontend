@@ -3,12 +3,12 @@
     <div class="container">
       <div class="row">
         <div class="col-2">
-          <b-nav pills vertical class="">
-            <b-nav-item to="/admin/general">General</b-nav-item>
-            <b-nav-item to="/admin/announcements">Announcements</b-nav-item>
-            <b-nav-item to="/admin/categories">Categories</b-nav-item>
-            <b-nav-item to="/admin/challenges">Challenges</b-nav-item>
-            <b-nav-item to="/admin/submissions">Submissions</b-nav-item>
+          <b-nav pills vertical>
+            <b-nav-item to="/admin/general" replace>General</b-nav-item>
+            <b-nav-item to="/admin/announcements" replace>Announcements</b-nav-item>
+            <b-nav-item to="/admin/categories" replace>Categories</b-nav-item>
+            <b-nav-item to="/admin/challenges" replace>Challenges</b-nav-item>
+            <b-nav-item to="/admin/submissions" replace>Submissions</b-nav-item>
           </b-nav>
         </div>
         <div class="col">
