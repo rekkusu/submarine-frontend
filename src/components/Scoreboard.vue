@@ -14,7 +14,7 @@
       <tbody>
         <tr v-for="item in scoreboard">
           <td>{{ item.order }}</td>
-          <td><router-link :to="{name: 'team', params: {id: item.team.id}}">{{ item.team.username }}</router-link></td>
+          <td><router-link :to="{name: 'team', params: {id: item.team.id}}">{{ item.team.name ? item.team.name : item.team.username }}</router-link></td>
           <td>{{ item.score }}</td>
           <td>{{ item.last }}</td>
         </tr>
@@ -44,7 +44,7 @@ export default {
             resp.data[i].last = moment(resp.data[i].last).format('YYYY/MM/DD HH:mm:ss');
           }
         }
-        this.scoreboard = resp.data.filter(r => !(r.team.role === 'admin' && r.order === '-'));
+        this.scoreboard = resp.data;
       })
   }
 }

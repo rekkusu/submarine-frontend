@@ -31,7 +31,7 @@
     </div>
     <div class="container">
       <b-table hover
-               :items="submissions"
+               :items="submissions_provider"
                :fields="submissions_fields"
                :per-page="per_page"
                :current-page="current_page"
@@ -87,18 +87,23 @@ export default {
       },
       sort_by: 'submitted_at',
       sort_desc: true,
-      per_page: 10,
+      per_page: 50,
       current_page: 1,
       total_rows: 0,
     }
   },
   mounted() {
-    this.$http.get('/api/v1/submissions').then(result => {
-      this.submissions = result.data;
-      this.total_rows = this.submissions.length;
-    });
   },
   methods: {
+    submissions_provider: function(ctx, callback) {
+      const offset = (ctx.currentPage - 1) * ctx.perPage;
+      const limit = ctx.perPage;
+
+      this.$http.get('/api/v1/submissions?offset=' + offset + '&limit=' + limit).then(result => {
+        this.total_rows = result.data.total;
+        callback(result.data.submissions);
+      });
+    },
     apply_filter: function(item, filter) {
       let match = true;
 
@@ -109,6 +114,7 @@ export default {
       return match;
     },
     onfiltered: function(items) {
+      return
       this.total_rows = items.length;
       this.current_page = 1;
     },
