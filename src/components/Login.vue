@@ -1,7 +1,17 @@
 <template>
   <div class="container mt-2">
-    <h2>Login</h2>
-    <form class="col-6" v-on:submit.prevent="onSubmit">
+    <b-modal
+      v-model="modal"
+      centered
+      title="Login"
+      no-close-on-esc
+      hide-header-close
+      no-close-on-backdrop
+      hideFooter
+      okOnly
+      okTitle="Login"
+    >
+    <form class="col" v-on:submit.prevent="onSubmit">
       <div class="form-group">
         <label for="username" class="form-control-label ">Username</label>
         <input type="text" class="form-control" id="username" v-model="username">
@@ -14,6 +24,7 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </form>
+    </b-modal>
   </div>
 </template>
 
@@ -45,6 +56,7 @@ export default {
   },
   data () {
     return {
+      modal: true,
       username: '',
       password: ''
     }

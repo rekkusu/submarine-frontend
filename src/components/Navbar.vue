@@ -1,5 +1,5 @@
 <template>
-  <b-navbar type="dark" class="navbar-expand-lg" variant="adctf">
+  <b-navbar type="dark" class="navbar-expand-lg" variant="adctf" style="z-index: 3000">
     <b-container>
       <b-navbar-brand to="/">ADCTF</b-navbar-brand>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

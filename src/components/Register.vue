@@ -1,47 +1,66 @@
 <template>
   <div class="container mt-2">
-    <h2>Register</h2>
-    <form class="col-6" v-on:submit.prevent="onSubmit">
-      <div class="form-group">
-        <label for="username" class="form-control-label">Username (4-32chars)</label>
-        <input type="text" class="form-control" id="username" placeholder="username" required v-model="username">
-      </div>
-      <div class="form-group">
-        <label for="password" class="form-control-label">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="password" required v-model="password">
-      </div>
-      <div class="form-group">
-        <label for="password2" class="form-control-label">Password (confirm)</label>
-        <input type="password" class="form-control" id="password2" placeholder="(retype)" required v-model="password2">
-      </div>
-      <div class="form-group">
-        <b-form-group label="Team">
-          <b-form-radio-group v-model="team.mode">
-            <b-form-radio value="create">Create</b-form-radio>
-            <b-form-radio value="join">Join</b-form-radio>
-          </b-form-radio-group>
-        </b-form-group>
-      </div>
-      <div class="form-group">
-        <label for="teamname" class="form-control-label">Team Name (4-32chars)</label>
-        <b-form-input v-model="team.name" id="teamname" required placeholder="Team name"></b-form-input>
-      </div>
-      <div class="form-group">
-        <label for="teampassword" class="form-control-label">Team Password</label>
-        <b-form-input v-model="team.password" id="teampassword" type="password" required></b-form-input>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-    </form>
+    <b-row class="justify-content-md-center">
+      <b-col cols="8">
+        <h2>Register</h2>
+        <b-form ref="form" class="" :validated="validated" v-on:submit.prevent="onSubmit" novalidate>
+          <b-form-group
+            label="Username"
+            labelFor="usernaame"
+          >
+            <input type="text" class="form-control" id="username" placeholder="username" required minlength="4" maxlength="32" v-model="username">
+          </b-form-group>
+          <div class="form-group">
+            <label for="password" class="form-control-label">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="password" required v-model="password">
+          </div>
+          <b-form-group
+            label="Password (confirm)"
+            labelFor="password2"
+            :state="password == password2"
+          >
+            <input type="password" class="form-control" id="password2" placeholder="(confirm)" required v-model="password2">
+          </b-form-group>
+          <div class="form-group">
+            <b-form-group label="Team">
+              <b-form-radio-group v-model="team.mode">
+                <b-form-radio value="create">Create</b-form-radio>
+                <b-form-radio value="join">Join</b-form-radio>
+              </b-form-radio-group>
+            </b-form-group>
+          </div>
+          <div class="form-group">
+            <label for="teamname" class="form-control-label">Team Name</label>
+            <b-form-input v-model="team.name" id="teamname" required placeholder="Team name"></b-form-input>
+          </div>
+          <div class="form-group">
+            <label for="teampassword" class="form-control-label">Team Password</label>
+            <b-form-input v-model="team.password" id="teampassword" type="password" required></b-form-input>
+          </div>
+          <div v-if="team.mode == 'create'" class="form-group">
+            <label for="teampassword2" class="form-control-label">Team Password (confirm)</label>
+            <b-form-input v-model="team.password2" id="teampassword2" type="password" required></b-form-input>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </b-form>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
+
   export default {
     name: 'register',
     methods: {
       onSubmit() {
+        this.validated = true;
+        if (this.$refs.form.checkValidity() == false) {
+          return;
+        }
+
         this.$http.post('/api/v1/users/signup', {
           username: this.username,
           password: this.password,
@@ -76,6 +95,7 @@
     },
     data () {
       return {
+        validated: false,
         username: '',
         password: '',
         password2: '',
@@ -83,6 +103,7 @@
           mode: 'create',
           name: '',
           password: '',
+          password2: '',
         },
       }
     }
