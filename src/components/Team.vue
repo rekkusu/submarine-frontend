@@ -1,9 +1,14 @@
 <template>
   <b-container class="mt-2">
     <template v-if="team">
-      <h2>{{ team.username }}</h2>
+      <h2>{{ team.team.name ? team.team.name : team.team.username }}</h2>
+      <h4>Members</h4>
+      <ul>
+        <li v-for="user in team.members">{{user.username}}</li>
+      </ul>
       <h4>Solved Challenges</h4>
-      <b-table hover :items="solved">
+      <span v-if="solved.length == 0">No challenges have solved yet</span>
+      <b-table v-else hover :items="solved">
       </b-table>
     </template>
   </b-container>
